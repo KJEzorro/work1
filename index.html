@@ -39,9 +39,18 @@
             list-style: none;
 
         }
+        .head {
+            height: 100%;
+        }
 
     </style>
-
+    <header class="bg-dark head">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">COFFEE & BURGER</h1>
+            </div>
+        </div>
+    </header>
 
 
         <!-- Navigation-->
@@ -50,11 +59,11 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                            <li><h1>COFFEE BURGER SHOP</h1></li>
+                            <li><h1>MENU</h1></li>
                             <li class="nav-item"><a class="nav-link active" onclick="changeData('http://localhost:5555/work1/coffee.json')"
-                                                    aria-current="page" href=".result" data-url="http://localhost:5555/work1/coffee.json">COFFEE</a></li>
+                                                    aria-current="page" data-url="http://localhost:5555/work1/coffee.json">COFFEE</a></li>
                             <li class="nav-item"><a class="nav-link active" onclick="changeData('http://localhost:5555/work1/burger.json')"
-                                                    aria-current="page" href=".result" data-url="http://localhost:5555/work1/burger.json">BURGER</a></li>
+                                                    aria-current="page" data-url="http://localhost:5555/work1/burger.json">BURGER</a></li>
                         </ul>
                 </div>
             </div>
@@ -108,6 +117,9 @@
         const orders=[]
 
         function changeData(url) {
+            console.log("url")
+            console.log(url)
+
             storeService.loadData(url, (arr) => {
                 console.log("callback..............")
                 console.log(arr)
@@ -118,17 +130,19 @@
 
 
         function makeCard(arr) {
+
             console.log("-----------------arr-------------------")
             console.log(arr)
-            let str = ''
+            // if(arr.length < 0){
+            //     return}
             const menuDivEle = document.querySelector("#menuResult")
+            let str = ''
             for (let i = 0; i < arr.length; i++) {
 
                 // console.log("-----------------arr[i]-----------------")
                 // console.log(arr[i])
 
                 str += `<li data-idx="${i}" class="menuDiv">
-                        <div class="menuDiv">
                         <div class="card">
                             <!-- Product image-->
                             <img class="card-img-top" src="${arr[i].picture}" alt="..." />
@@ -142,10 +156,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </li>`
 
             }
+            console.log("--------------str---------------------")
+            console.log(str)
             menuDivEle.innerHTML = str
 
         }
@@ -157,8 +172,8 @@
 
 
                 const target = e.target
-                // console.log("--------------target-----------------")
-                // console.log(target)
+                console.log("--------------target-----------------")
+                console.log(target)
 
                 const liEle = target.closest("li")
                 const idx = liEle.getAttribute("data-idx")
